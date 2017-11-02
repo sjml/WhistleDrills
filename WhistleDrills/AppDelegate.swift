@@ -15,7 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         defaults.set(true, forKey: "NSQuitAlwaysKeepsWindows")
-        NSApplication.shared().mainWindow?.backgroundColor = NSColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        NSApplication.shared.mainWindow?.backgroundColor = NSColor(red: 1, green: 1, blue: 1, alpha: 1)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

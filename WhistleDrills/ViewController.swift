@@ -75,26 +75,28 @@ class ViewController: NSViewController, NSWindowDelegate {
         
         currentNote = notes[noteIndex];
         
-        noteView.image      = NSImage(named: currentNote + "_note.pdf")
-        fingeringView.image = NSImage(named: currentNote + "_fingering.pdf")
+        noteView.image      = NSImage(named: NSImage.Name(currentNote + "_note.pdf"))
+        fingeringView.image = NSImage(named: NSImage.Name(currentNote + "_fingering.pdf"))
         fingeringView.isHidden = true
         
-        revealTimer = Timer.scheduledTimer(timeInterval: revealDelaySlider.doubleValue, target: self, selector: #selector(self.revealFingering(_:)), userInfo: nil, repeats: false)
+        revealTimer = Timer.scheduledTimer(withTimeInterval: revealDelaySlider.doubleValue, repeats: false) {
+            _ in
+            self.revealFingering()
+        }
     }
     
-    func revealFingering(_ timer: Timer) {
+    func revealFingering() {
         let duration: Double = 3.0
         
-        changeTimer = Timer.scheduledTimer(timeInterval: changeDelaySlider.doubleValue + duration, target: self, selector: #selector(self.changeNote(_:)), userInfo: nil, repeats: false)
+        changeTimer = Timer.scheduledTimer(withTimeInterval: changeDelaySlider.doubleValue + duration, repeats: false) {
+            _ in
+            self.pickNewNote()
+        }
         
         NSAnimationContext.beginGrouping()
-        NSAnimationContext.current().duration = duration
+        NSAnimationContext.current.duration = duration
         fingeringView.animator().isHidden = false
         NSAnimationContext.endGrouping()
-    }
-    
-    func changeNote(_ timer: Timer) {
-        pickNewNote()
     }
 
 }
